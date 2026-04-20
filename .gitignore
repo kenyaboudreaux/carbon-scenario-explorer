@@ -1,0 +1,39 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+*.egg
+
+# Node
+node_modules/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+!frontend/.env.production
+!frontend/.env.development
+
+# Vercel
+.vercel/
+
+# Runtime data (user-generated)
+backend/data/saved_scenarios.json
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

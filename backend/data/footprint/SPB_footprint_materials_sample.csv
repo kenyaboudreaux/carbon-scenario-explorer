@@ -1,0 +1,6 @@
+Name,Code,Config,Commodity Group,Commodity,Module,Phase,kg CO2e/unit
+Sample Product B,SPB,default,End-of-Life,End-of-Life,End-of-Life,End-of-Life,0.018945
+Sample Product B,SPB,default,Transport,Transport to EOL,Transport,End-of-Life,0.001771
+Sample Product B,SPB,default,Assembly,Final Assembly,Assembly,Manufacturing,0.270465
+Sample Product B,SPB,default,Raw Materials,Aluminum,Housing,Production,1.351911
+Sample Product B,SPB,default,Raw Materials,Glass,Display,Production,0.345229

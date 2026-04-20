@@ -1,0 +1,153 @@
+.scenario-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
+.sm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sm-header h3 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.sm-save {
+  display: flex;
+  gap: 6px;
+}
+
+.sm-name-input {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid #d0d0d8;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.sm-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sm-empty {
+  text-align: center;
+  color: #aaa;
+  font-size: 12px;
+  padding: 20px;
+}
+
+.scenario-card {
+  border: 1px solid #e0e0e8;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.sc-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.sc-top input[type="checkbox"] {
+  margin-top: 3px;
+}
+
+.sc-info {
+  flex: 1;
+  cursor: pointer;
+}
+
+.sc-info:hover {
+  opacity: 0.7;
+}
+
+.sc-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.sc-meta {
+  font-size: 10px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.sc-badge {
+  color: #2d6cdf;
+  font-weight: 700;
+  font-size: 10px;
+}
+
+.sc-origin {
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.sc-origin-optimized {
+  color: #27ae60;
+}
+
+.sc-origin-preset {
+  color: #8e44ad;
+}
+
+.btn-delete {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.btn-delete:hover {
+  color: #e74c3c;
+}
+
+.btn-small {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: #2d6cdf;
+  color: #fff;
+  border: 1px solid #2d6cdf;
+}
+
+.btn-primary:hover {
+  background: #245ab8;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn-outline {
+  background: #fff;
+  color: #555;
+  border: 1px solid #d0d0d8;
+}
+
+.btn-outline:hover {
+  background: #f0f0f4;
+}
+
+.sm-export {
+  align-self: stretch;
+}

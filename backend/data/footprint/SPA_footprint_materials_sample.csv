@@ -1,0 +1,7 @@
+Name,Code,Config,Commodity Group,Commodity,Module,Phase,kg CO2e/unit
+Sample Product A,SPA,default,End-of-Life,End-of-Life,End-of-Life,End-of-Life,0.013407
+Sample Product A,SPA,default,Transport,Transport to EOL,Transport,End-of-Life,0.000934
+Sample Product A,SPA,default,Assembly,Final Assembly,Assembly,Manufacturing,0.173582
+Sample Product A,SPA,default,Assembly,Sub-Assembly,PCB Assembly,Manufacturing,0.004993
+Sample Product A,SPA,default,Raw Materials,Aluminum,Housing,Production,0.731282
+Sample Product A,SPA,default,Raw Materials,Polymer,Enclosure,Production,0.114386

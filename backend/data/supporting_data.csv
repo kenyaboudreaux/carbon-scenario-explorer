@@ -1,0 +1,44 @@
+Process or data type,Data,Value,Units,Notes
+Manufacturing grid mix,Region A,0.82,kg CO2e/kWh,Based on regional grid averages
+,,,,
+,Region B,0.61,kg CO2e/kWh,
+,Region C,0.66,kg CO2e/kWh,
+,100% renewables,0.07,kg CO2e/kWh,Renewable energy sourcing
+,,,,
+Machining,Power,2,kW (average),Measured average across multiple machines
+,,,,
+Forging,Forging strikes,0.01,kWh/strike,Based on 500 ton press
+,Trimming/bending strikes,0.005,kWh/strike,Based on 110 ton press
+,,,,
+Stamping,Stamping presses,0.005,kWh/stamping press,LCA database reference
+,,,,
+Heat treatment,Stainless steel specific heat,500,J/kg/K,Physical property
+,Aluminum specific heat,900,J/kg/K,Physical property
+,Heating efficiency,0.2,percent,Estimated from literature
+,Starting temperature,25,ºC,Assumed ambient
+,Annealing temperature,1100,ºC,Standard annealing temperature
+,Tempering temperature,400,ºC,Standard tempering temperature
+,,,,
+Al sheet rolling,Electricity,0.092,kWh/kg,LCA database
+,Add’l impact,0.5748,kg CO2e/kg,From life cycle assessment databases
+,Upstream sheet rolling utilization,0.71,,Industry average
+,,,,
+Die casting (aluminum),Electricity,0.97,kWh/kg,LCA database
+,Thermal energy,1.9,MJ/kg,
+,Thermal intensity,0.0754,kg CO2e/MJ,
+,Thermal impact (calc'd),0.1433,kg CO2e/kg,
+,,,,
+Injection molding,Power,12,kW,Estimate for cold runner polymer
+,,,,
+Laser cutting,Power,4,kW,Measured from production equipment
+,,,,
+Laser etching,Power,0.145,kW,Placeholder estimate
+,,,,
+Extrusion,Electricity,1.06,kWh/kg,LCA database
+,Upstream extrusion utilization,0.63,,Industry weighted average
+,Upstream casting utilization,0.86,,Industry weighted average
+,,,,
+Anodizing,Electricity,0.2,kWh/step,Measured from production equipment
+,,,,
+Sanding,Power,0.6,kW,Placeholder estimate
+,,,,
