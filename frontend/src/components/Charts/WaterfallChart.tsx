@@ -61,8 +61,8 @@ export default function WaterfallChart({ breakdown }: Props) {
     <div className="chart-container">
       <h3 className="chart-title">Cumulative Emissions (Waterfall)</h3>
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data} margin={{ left: 120, right: 30, top: 5, bottom: 5 }} layout="vertical">
-          <XAxis type="number" tick={{ fontSize: 11 }} label={{ value: "kg CO2e/unit", position: "bottom", fontSize: 11 }} />
+        <BarChart data={data} margin={{ left: 120, right: 30, top: 5, bottom: 24 }} layout="vertical">
+          <XAxis type="number" tick={{ fontSize: 11 }} label={{ value: "kg CO2e/unit", position: "insideBottom", offset: -12, fontSize: 11, fill: "#888" }} />
           <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={110} />
           <Tooltip
             formatter={(value: number, name: string) => {

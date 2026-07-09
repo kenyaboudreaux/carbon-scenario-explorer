@@ -6,7 +6,6 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
-  Legend,
 } from "recharts";
 import type { ProcessBreakdown } from "../../types";
 import { PROCESS_COLORS, PROCESS_LABELS } from "../../types";
@@ -47,15 +46,14 @@ export default function BreakdownBarChart({ breakdown }: Props) {
   return (
     <div className="chart-container">
       <h3 className="chart-title">Process Breakdown</h3>
-      <ResponsiveContainer width="100%" height={Math.max(200, data.length * 40 + 60)}>
-        <BarChart data={data} layout="vertical" margin={{ left: 120, right: 30, top: 5, bottom: 5 }}>
-          <XAxis type="number" tick={{ fontSize: 11 }} label={{ value: "kg CO2e/unit", position: "bottom", fontSize: 11 }} />
+      <ResponsiveContainer width="100%" height={Math.max(200, data.length * 40 + 70)}>
+        <BarChart data={data} layout="vertical" margin={{ left: 120, right: 30, top: 5, bottom: 24 }}>
+          <XAxis type="number" tick={{ fontSize: 11 }} label={{ value: "kg CO2e/unit", position: "insideBottom", offset: -12, fontSize: 11, fill: "#888" }} />
           <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={110} />
           <Tooltip
             formatter={(value: number) => [value.toFixed(6) + " kg CO2e", "Impact"]}
             contentStyle={{ fontSize: 12 }}
           />
-          <Legend />
           <Bar dataKey="value" name="kg CO2e" radius={[0, 4, 4, 0]}>
             {data.map((entry, idx) => (
               <Cell key={idx} fill={entry.color} />
