@@ -16,6 +16,7 @@ import { useCalculation } from "./hooks/useCalculation";
 import { useReferenceData } from "./hooks/useReferenceData";
 import { useScenarios } from "./hooks/useScenarios";
 import { usePresets } from "./hooks/usePresets";
+import { useAppConfig } from "./hooks/useAppConfig";
 import type { ScenarioInput, ProductContext, FieldProvenance, ModelValidity } from "./types";
 import { DEFAULT_INPUT, DEFAULT_PRODUCT_CONTEXT } from "./types";
 import { mapPMFComponent } from "./api/client";
@@ -37,6 +38,7 @@ function App() {
   const { breakdown, loading, error } = useCalculation(input);
   const { materials, gridOptions, blankTypes, loaded } = useReferenceData();
   const { families, activePreset, loadPreset, clearPreset, presetsForFamily } = usePresets();
+  const appConfig = useAppConfig();
   const {
     scenarios, selectedIds, save, remove, load, toggleSelect, downloadCsv,
   } = useScenarios();
@@ -234,6 +236,8 @@ function App() {
       activeTab={activeTab}
       onTabChange={setActiveTab}
       modelingLabel={productLabel || undefined}
+      datasetLabel={appConfig?.dataset_label}
+      dataMode={appConfig?.data_mode}
     >
       {activeTab === "model" && showLanding ? (
         <div className="landing-container">
@@ -241,6 +245,8 @@ function App() {
             onStartProduct={() => { setHasInteracted(true); }}
             onStartBlank={() => { setHasInteracted(true); }}
             onDemoSelect={handleDemoSelect}
+            onViewMethodology={() => setActiveTab("report")}
+            onCompareScenarios={() => setActiveTab("compare")}
           />
         </div>
       ) : activeTab === "model" ? (

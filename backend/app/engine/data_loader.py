@@ -5,7 +5,7 @@ import logging
 import math
 import pandas as pd
 
-from ..config import ALLOY_CSV, SUPPORTING_CSV, FOOTPRINT_DIR, compute_assumptions_hash
+from ..config import ALLOY_CSV, SUPPORTING_CSV, FOOTPRINT_DIR, compute_assumptions_hash, require_public_safe_dataset
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +30,9 @@ class LoadedData:
 
 def load_all() -> LoadedData:
     data = LoadedData()
+    # Guardrail: refuse non-demo-safe dataset paths when in public/external mode.
+    require_public_safe_dataset(ALLOY_CSV)
+    require_public_safe_dataset(SUPPORTING_CSV)
     _load_alloy_data(data)
     _load_supporting_data(data)
     _load_upstream_utilization(data)

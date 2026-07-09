@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from ..config import DATA_DIR
+from ..config import DATA_DIR, require_public_safe_dataset
 
 logger = logging.getLogger(__name__)
 
@@ -72,6 +72,9 @@ def load_pmf_data() -> dict[str, PMFProduct]:
     if not PMF_DIR.exists():
         logger.warning(f"PMF directory not found: {PMF_DIR}")
         return {}
+
+    # Guardrail: in public/external mode, only demo-safe bundled data is allowed.
+    require_public_safe_dataset(PMF_DIR)
 
     products: dict[str, PMFProduct] = {}
 

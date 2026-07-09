@@ -14,11 +14,29 @@ import type {
   MappingResult,
 } from "../types";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api";
 
 const api = axios.create({
   baseURL: API_BASE,
 });
+
+export interface AppConfig {
+  public_demo_mode: boolean;
+  data_mode: string;
+  dataset_label: string;
+  model_version: string;
+  data_version: string;
+}
+
+export async function getConfig(): Promise<AppConfig> {
+  const { data } = await api.get<AppConfig>("/config");
+  return data;
+}
+
+export async function getHealth(): Promise<{ status: string }> {
+  const { data } = await api.get<{ status: string }>("/health");
+  return data;
+}
 
 export async function calculate(input: ScenarioInput): Promise<ProcessBreakdown> {
   const { data } = await api.post<ProcessBreakdown>("/calculate", input);

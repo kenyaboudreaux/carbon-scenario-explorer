@@ -9,6 +9,7 @@ from .engine.data_loader import load_all, validate_loaded_data
 from .engine.pmf_loader import load_pmf_data
 from .store.scenario_store import ScenarioStore
 from .models.products import BASELINE_PRESETS, DEMO_SCENARIOS
+from .config import PUBLIC_DEMO_MODE, DATA_MODE, data_mode_info
 from .routers import calculate, reference, scenarios, export, optimize, pmf
 from .routers import packaging as packaging_router
 
@@ -19,6 +20,7 @@ logging.basicConfig(level=logging.INFO)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Carbon Scenario Explorer — starting up...")
+    logger.info(f"Data mode: {DATA_MODE} (public_demo_mode={PUBLIC_DEMO_MODE})")
 
     data = load_all()
     validate_loaded_data(data)
@@ -42,9 +44,20 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Carbon Scenario Explorer", lifespan=lifespan)
 
-_cors_origins = os.environ.get(
-    "CORS_ORIGINS", "http://localhost:5173,http://localhost:3000"
-).split(",")
+# CORS: explicit allow-list for local dev + optional deployment origins.
+# Never a wildcard with credentials. On Vercel the frontend and API are
+# same-origin (served under one domain), so CORS is only needed for local dev
+# and any extra origins listed via env.
+_default_origins = "http://localhost:5173,http://localhost:3000"
+_cors_origins = [
+    o.strip()
+    for o in os.environ.get("CORS_ORIGINS", _default_origins).split(",")
+    if o.strip()
+]
+# Allow the current Vercel deployment URL (auto-injected by Vercel) if present.
+_vercel_url = os.environ.get("VERCEL_URL")
+if _vercel_url:
+    _cors_origins.append(f"https://{_vercel_url}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -66,3 +79,9 @@ app.include_router(packaging_router.router)
 @app.get("/api/health")
 async def health():
     return {"status": "ok"}
+
+
+@app.get("/api/config")
+async def config():
+    """Public runtime config — data mode + version stamps for the UI badge."""
+    return data_mode_info()
