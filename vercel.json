@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd frontend && pnpm install && pnpm run build",
+  "buildCommand": "cd frontend && npx --yes pnpm@10 install --no-frozen-lockfile && npx --yes pnpm@10 run build",
   "outputDirectory": "frontend/dist",
   "installCommand": "echo skip-root-install",
   "rewrites": [
