@@ -1,0 +1,7 @@
+# Python deps for the Vercel serverless function (api/index.py).
+# Co-located with the function so Vercel's Python runtime installs them
+# reliably in static-project (buildCommand/outputDirectory) mode.
+fastapi>=0.104.0
+pandas>=2.1.0
+pydantic>=2.5.0
+python-multipart>=0.0.6

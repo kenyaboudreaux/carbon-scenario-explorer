@@ -1,8 +1,29 @@
 {
-  "buildCommand": "cd frontend && npx --yes pnpm@10 install --no-frozen-lockfile && npx --yes pnpm@10 run build",
-  "outputDirectory": "frontend/dist",
-  "installCommand": "echo skip-root-install",
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
