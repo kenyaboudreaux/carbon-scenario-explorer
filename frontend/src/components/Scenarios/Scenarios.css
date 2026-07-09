@@ -151,3 +151,18 @@
 .sm-export {
   align-self: stretch;
 }
+
+.comparison-example-note {
+  background: #eef4ff;
+  border: 1px solid #c9dbff;
+  color: #33507e;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.comparison-example-note strong {
+  color: #1a3a6b;
+}

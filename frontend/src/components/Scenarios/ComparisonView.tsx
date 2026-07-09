@@ -8,9 +8,9 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import type { SavedScenario } from "../../types";
-import { PROCESS_COLORS, PROCESS_LABELS } from "../../types";
-import { compareScenarios } from "../../api/client";
+import type { SavedScenario, ScenarioInput } from "../../types";
+import { DEFAULT_INPUT, PROCESS_COLORS, PROCESS_LABELS } from "../../types";
+import { compareScenarios, calculate } from "../../api/client";
 
 const PROCESS_KEYS = [
   "raw_material",
@@ -30,28 +30,74 @@ interface Props {
   selectedIds: string[];
 }
 
+// A representative enclosure input used to generate the built-in example
+// comparison shown before the user has saved any scenarios of their own.
+const EXAMPLE_BASE: ScenarioInput = {
+  ...DEFAULT_INPUT,
+  material: "Alloy-F",
+  raw_material_blank_type: "Extruded",
+  raw_material_mass: 1362.7,
+  machining_cycle_time: 120,
+  anodizing: true,
+  electricity_grid: "Region A",
+};
+
+const EXAMPLE_SPECS: { name: string; input: ScenarioInput }[] = [
+  { name: "Baseline (virgin, Region A)", input: EXAMPLE_BASE },
+  {
+    name: "100% recycled aluminum",
+    input: { ...EXAMPLE_BASE, recycled_content: 100 },
+  },
+  {
+    name: "Renewable grid",
+    input: { ...EXAMPLE_BASE, electricity_grid: "100% renewables" },
+  },
+];
+
 export default function ComparisonView({ selectedIds }: Props) {
   const [scenarios, setScenarios] = useState<SavedScenario[]>([]);
+  const [isExample, setIsExample] = useState(false);
 
   useEffect(() => {
-    if (selectedIds.length < 2) {
-      setScenarios([]);
-      return;
-    }
-    compareScenarios(selectedIds).then(setScenarios).catch(() => {});
-  }, [selectedIds]);
+    let active = true;
 
-  if (selectedIds.length < 2) {
-    return (
-      <div className="comparison-empty">
-        <h3>Compare baseline, modified, and optimized scenarios side by side</h3>
-        <p>Select 2 or more saved scenarios to compare them.</p>
-        <p style={{ fontSize: 12, color: "#aaa" }}>
-          Use the checkboxes in the sidebar to select scenarios.
-        </p>
-      </div>
-    );
-  }
+    if (selectedIds.length >= 2) {
+      setIsExample(false);
+      compareScenarios(selectedIds)
+        .then((s) => active && setScenarios(s))
+        .catch(() => {});
+      return () => {
+        active = false;
+      };
+    }
+
+    // No user scenarios selected — build a live example comparison so the
+    // page is never empty. Calculated via the same /calculate engine.
+    setIsExample(true);
+    Promise.all(
+      EXAMPLE_SPECS.map(async (spec, i) => {
+        const breakdown = await calculate(spec.input);
+        const stamp = "1970-01-01T00:00:00Z";
+        return {
+          id: `example-${i}`,
+          name: spec.name,
+          input: spec.input,
+          breakdown,
+          product_context: null,
+          notes: null,
+          created_at: stamp,
+          updated_at: stamp,
+          origin: "example",
+        } as SavedScenario;
+      })
+    )
+      .then((s) => active && setScenarios(s))
+      .catch(() => active && setScenarios([]));
+
+    return () => {
+      active = false;
+    };
+  }, [selectedIds]);
 
   if (scenarios.length === 0) return null;
 
@@ -73,6 +119,14 @@ export default function ComparisonView({ selectedIds }: Props) {
   return (
     <div className="comparison-view">
       <h3 className="chart-title" style={{ marginBottom: 16 }}>Scenario Comparison</h3>
+
+      {isExample && (
+        <div className="comparison-example-note">
+          <strong>Example comparison.</strong> This shows a sample enclosure across
+          three scenarios so you can see the view in action. Save your own scenarios
+          (and tick them in the sidebar) to compare them here.
+        </div>
+      )}
 
       <div className="chart-container" style={{ marginBottom: 20 }}>
         <ResponsiveContainer width="100%" height={300}>
