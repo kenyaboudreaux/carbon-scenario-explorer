@@ -1,29 +1,13 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+  "buildCommand": "cd frontend && npx --yes pnpm@10 install --no-frozen-lockfile && npx --yes pnpm@10 run build",
+  "outputDirectory": "frontend/dist",
+  "framework": null,
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "backend/**"
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "api/index.py"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index" }
   ]
 }
