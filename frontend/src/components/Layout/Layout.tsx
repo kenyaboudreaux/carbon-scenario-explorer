@@ -7,19 +7,29 @@ interface Props {
   activeTab: "model" | "compare" | "report";
   onTabChange: (tab: "model" | "compare" | "report") => void;
   modelingLabel?: string;
+  datasetLabel?: string;
+  dataMode?: string;
 }
 
 export default function Layout({
-  sidebar, children, activeTab, onTabChange, modelingLabel,
+  sidebar, children, activeTab, onTabChange, modelingLabel, datasetLabel, dataMode,
 }: Props) {
   const subtitle = modelingLabel
     ? `Modeling: ${modelingLabel}`
-    : "Product-aware scenario analysis with anonymized sample data";
+    : "Real-time carbon scenario modeling for product development decisions";
+
+  const badgeLabel = datasetLabel || "Public demo dataset — synthetic / external data only";
 
   return (
     <div className="layout">
       <header className="header">
-        <h1 className="header-title">Carbon Scenario Explorer</h1>
+        <div className="header-topline">
+          <h1 className="header-title">Carbon Scenario Explorer</h1>
+          <span className="demo-badge-pill" title={badgeLabel}>
+            <span className="demo-badge-dot" />
+            Public demo{dataMode ? ` · ${dataMode} data` : ""}
+          </span>
+        </div>
         <p className="header-sub">{subtitle}</p>
         <nav className="tabs">
           <button

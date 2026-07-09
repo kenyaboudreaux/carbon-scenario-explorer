@@ -1,0 +1,7 @@
+# Vercel serverless (Python) dependencies for the Carbon Scenario Explorer API.
+# Mirrors backend/requirements.txt minus local-only dev/test tooling.
+# The @vercel/python builder installs these for api/index.py.
+fastapi>=0.104.0
+pandas>=2.1.0
+pydantic>=2.5.0
+python-multipart>=0.0.6

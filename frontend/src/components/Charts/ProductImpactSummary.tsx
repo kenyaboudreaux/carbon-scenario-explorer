@@ -33,7 +33,7 @@ export default function ProductImpactSummary({ program, component, input }: Prop
     }
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api"}/pmf/product-impact`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || "/api"}/pmf/product-impact`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ program, component, scenario_input: input }),
